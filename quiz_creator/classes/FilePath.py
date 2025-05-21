@@ -1,7 +1,7 @@
 import pathlib
 import time
 
-class FilePath(pathlib):
+class FilePath(pathlib.Path):
 
     #filepath initialization and make file on initialization, do nothing if file exists
     def __init__(self, filename):
