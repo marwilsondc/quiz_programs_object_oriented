@@ -14,7 +14,7 @@ class Questions:
     def write(self, path):
         new_line = "\n"
 
-        with open(path, "w") as file:
+        with open(path, "a") as file:
             file.write(f"{new_line}<{self.code:b}> <question>:{self.content}{new_line}")
 
     def count():

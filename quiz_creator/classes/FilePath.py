@@ -1,4 +1,5 @@
 import pathlib
+import time
 
 class FilePath(pathlib):
 
@@ -7,6 +8,16 @@ class FilePath(pathlib):
         self.filename = filename
         self.path = pathlib.Path("~", "Documents", self.filename).expanduser()
         self.path.parent.mkdir(exist_ok = True, parents = True)
+
+        try:
+            with open(self.path, "x") as file:
+                file.write(f"File created at: {time.asctime()}")
+                print(f"File is stored at {pathlib.Path(file.name)}")
+
+        except FileExistsError:
+            print(f"{self.filename} is already created")
+            with open(self.path, "r") as file:
+                print(f"File is stored at {pathlib.Path(file.name)}")
 
     #return filename when called
     def __str__(self):
@@ -46,3 +57,8 @@ class FilePath(pathlib):
         else: 
             print("Line", line_num, "not in file.")
             print("File has", len(lines), "lines.")
+
+    def clear_contents(self): 
+        with open(self.path, "w") as file:
+            file.write(f"File cleared at: {time.asctime()}")
+            file.close()
