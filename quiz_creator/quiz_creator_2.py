@@ -12,3 +12,6 @@ from classes.Corrects import Corrects
 
 #import FilePath
 from classes.FilePath import FilePath
+
+current_path = FilePath("questions.txt")
+
