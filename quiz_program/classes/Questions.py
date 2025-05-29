@@ -14,3 +14,23 @@ class Questions:
 
         with open(path, "a") as file:
             file.write(f"{new_line}<{self.code:b}> <question>:{self.content}{new_line}")
+
+    #to return a specific question
+    def get_question(path: str, code: int) -> str:
+        break_flag = False
+
+        with open(path, "r") as file:
+            content = file.readlines()
+
+            for i in content:
+                if i.startswith(f"<{code:b}> <question>"):
+                    spec_ques = i
+                    break_flag = True
+
+                elif break_flag:
+                    break
+
+                else:
+                    continue
+
+            return spec_ques.replace(f"<{code:b}> <question>:", "")

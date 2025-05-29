@@ -6,7 +6,7 @@ class FilePath(pathlib.Path):
     #filepath initialization and make file on initialization, do nothing if file exists
     def __init__(self, filename):
         self.filename = filename
-        self.path = pathlib.Path("~", "Documents", self.filename).expanduser()
+        self.path = pathlib.Path("~", "Documents", self.filename + ".txt").expanduser()
         self.path.parent.mkdir(exist_ok = True, parents = True)
 
         try:
