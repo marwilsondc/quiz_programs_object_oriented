@@ -16,7 +16,7 @@ import time
 #import random
 import random
 
-current_path = FilePath("questions.txt")
+current_path = FilePath("questions")
 
 #define change_path for changing file being accessed
 def change_path(new_file: str):
