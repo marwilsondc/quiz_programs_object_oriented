@@ -21,9 +21,15 @@ def change_path(new_file: str):
     global current_path
     current_path = FilePath(new_file)
 
+def ques_count():
+    with open(current_path, "r") as file:
+        content = file.read()
+        return content.count("<question>")
+    file.close()
+
 #while loop to continue asking user for input until ended
 while True:
-    question_count = 0 
+    ques_count()  
     ques_dict = {}
 
     #construct list of questions with ques_dict using block below
@@ -36,10 +42,9 @@ while True:
                     clean_code = unclean_code[0].split(" ")
                     insert_code = clean_code[0]
                     ques_dict[insert_code] = Questions(unclean_code[1], unclean_code[0])
-                    question_count += 1
 
 
-    local_count = question_count
+    local_count = ques_count()
     local_path_var = current_path
 
     #Main menu for the program, where the user will select from options
@@ -70,14 +75,18 @@ Questions added: {local_count}
     #Inputs to the file are also separated by a colon, separating the formatting and the actual user inputs
     if user_select == "1":
         user_input = input("Input the question you want to add: ")
-        Questions.write(user_input, local_count + 1)
-        local_count = Questions.count()
+        new_question = Questions(user_input, local_count + 1)
+        new_question.write(current_path)
+        local_count = ques_count()
         
         for i in range(0, 4):
             user_input = input("Input the choices that you want to add to your question: ")
-            Choices.write(user_input, local_count)
+            new_choice = Choices(user_input, local_count)
+            new_choice.write(current_path)
+
         user_input = input("Input the correct answer from your choices in the question: ")
-        Corrects.write(user_input, local_count)
+        new_correct = Corrects(user_input, local_count)
+        new_correct.write(current_path)
         print("New question added!")
         continue
 
@@ -109,7 +118,7 @@ Questions added: {local_count}
         
         user_edit = input("Input the text to replace current line: ")
 
-        FilePath.edit_content(user_input, user_edit)
+        current_path.edit_content(user_input, user_edit)
         print("Done!")
 
     #This option clears the contents of the file after being given the permission by the user
@@ -119,7 +128,7 @@ Questions added: {local_count}
             user_input = input("This will clear the file's contents. Are you sure? [y/n]: ")
             
             if user_input == "y":
-                FilePath.clear_contents()
+                current_path.clear_contents()
                 print("Cleared file contents!")
                 break
 
