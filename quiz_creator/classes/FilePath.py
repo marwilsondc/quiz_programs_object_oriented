@@ -19,9 +19,9 @@ class FilePath(pathlib.Path):
             with open(self.path, "r") as file:
                 print(f"File is stored at {pathlib.Path(file.name)}")
 
-    #return filename when called
+    #return file.path when called
     def __str__(self):
-        return f"{self.filename}"
+        return f"{self.path}"
 
     #return current directory
     def current_dir(self) -> str:
