@@ -23,7 +23,7 @@ def change_path(new_file: str):
 
 #while loop to continue asking user for input until ended
 while True:
-    
+    question_count = 0 
     ques_dict = {}
 
     #construct list of questions with ques_dict using block below
@@ -31,14 +31,15 @@ while True:
         lines = file.readlines()
         for line in lines:
             if "<question>" in line:
-                unclean_code = line.split(":")
-                clean_code = unclean_code.split(" ")
-                insert_code = clean_code[0]
+                if line not in ques_dict:
+                    unclean_code = line.split(":")
+                    clean_code = unclean_code[0].split(" ")
+                    insert_code = clean_code[0]
+                    ques_dict[insert_code] = Questions(unclean_code[1], unclean_code[0])
+                    question_count += 1
 
-                ques_dict[f"{insert_code}"] = Questions(unclean_code[1], unclean_code[0])
 
-
-    local_count = Questions.count()
+    local_count = question_count
     local_path_var = current_path
 
     #Main menu for the program, where the user will select from options
